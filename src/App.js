@@ -1,6 +1,5 @@
-import logo from './logo.svg'
 import './App.css'
-import Container from './components/container'
+import Container from './Container'
 
 function App() {
     return (

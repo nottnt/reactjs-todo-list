@@ -11,6 +11,7 @@ import {
     Button,
     Grid,
 } from '@material-ui/core'
+import moment from 'moment'
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -41,23 +42,37 @@ const CustomizedTables = ({
         { title: 'sleep', date: '99/99/9999 99: 99' },
         { title: 'work', date: '55/55/5555 55: 55' },
     ],
+    setBtnText,
+    setTodoDate,
+    setToDoText,
+    setRowUpdate,
+    handleAction
 }) => {
     const classes = useStyles()
 
     return (
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} id="table-container">
             <Table className={classes.table} aria-label="customized table">
                 <TableHead>
                     <TableRow>
-                        <StyledTableCell>No.</StyledTableCell>
-                        <StyledTableCell align="center">Title</StyledTableCell>
-                        <StyledTableCell align="center">Date</StyledTableCell>
-                        <StyledTableCell align="right"></StyledTableCell>
+                        <StyledTableCell id="table-cell-no">
+                            No.
+                        </StyledTableCell>
+                        <StyledTableCell id="table-cell-title" align="center">
+                            Title
+                        </StyledTableCell>
+                        <StyledTableCell id="table-cell-date" align="center">
+                            Date
+                        </StyledTableCell>
+                        <StyledTableCell
+                            id="table-cell-action"
+                            align="right"
+                        ></StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {data.map((row, index) => (
-                        <StyledTableRow key={row.title}>
+                        <StyledTableRow key={row._id}>
                             <StyledTableCell component="th" scope="row">
                                 {index + 1}
                             </StyledTableCell>
@@ -65,7 +80,7 @@ const CustomizedTables = ({
                                 {row.title}
                             </StyledTableCell>
                             <StyledTableCell align="center">
-                                {row.date}
+                                {moment(row.date).format('MM-DD-YYYY')}
                             </StyledTableCell>
                             <StyledTableCell align="center">
                                 {/* action */}
@@ -75,6 +90,12 @@ const CustomizedTables = ({
                                             variant="contained"
                                             color="primary"
                                             size="small"
+                                            onClick={() => {
+                                                setBtnText('Update')
+                                                setTodoDate(row.date)
+                                                setToDoText(row.title)
+                                                setRowUpdate(row)
+                                            }}
                                         >
                                             Edit
                                         </Button>
@@ -84,6 +105,9 @@ const CustomizedTables = ({
                                             variant="contained"
                                             color="secondary"
                                             size="small"
+                                            onClick={() => {
+                                                handleAction('Delete', row._id)
+                                            }}
                                         >
                                             Delete
                                         </Button>

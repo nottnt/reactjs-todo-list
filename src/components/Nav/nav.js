@@ -26,7 +26,7 @@ const Nav = () => {
 
     return (
         <div className={classes.root}>
-            <AppBar className={classes.appBar}>
+            <AppBar className={classes.appBar} id="app-bar">
                 <Toolbar>
                     <Typography className={classes.title} variant="h6" noWrap>
                         To Do List.
