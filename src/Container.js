@@ -67,6 +67,9 @@ const Container = () => {
                 date: '2020-11-17T17:00:00.000Z',
             }
             await updateToDoList(body)
+            setBtnText('Add')
+            setToDoText('')
+            setTodoDate('')
         } else if (type === 'Delete') {
             await deleteToDoList(id)
             setToDoText('')
