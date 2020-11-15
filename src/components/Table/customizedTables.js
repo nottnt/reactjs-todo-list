@@ -46,7 +46,7 @@ const CustomizedTables = ({
     setTodoDate,
     setToDoText,
     setRowUpdate,
-    handleAction
+    handleAction,
 }) => {
     const classes = useStyles()
 
@@ -92,7 +92,11 @@ const CustomizedTables = ({
                                             size="small"
                                             onClick={() => {
                                                 setBtnText('Update')
-                                                setTodoDate(row.date)
+                                                setTodoDate(
+                                                    moment(row.date).format(
+                                                        'YYYY-MM-DD'
+                                                    )
+                                                )
                                                 setToDoText(row.title)
                                                 setRowUpdate(row)
                                             }}

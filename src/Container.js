@@ -36,7 +36,7 @@ const UseStyles = makeStyles((theme) => ({
 const Container = () => {
     const classes = UseStyles()
     const [todoText, setToDoText] = useState('')
-    const [todoDate, setTodoDate] = useState('')
+    const [todoDate, setTodoDate] = useState(moment().format('YYYY-MM-DD'))
     const [btnText, setBtnText] = useState('Add')
     const [isLoading, setIsLoading] = useState(true)
     const [toDoData, setTodoData] = useState([])
@@ -57,24 +57,23 @@ const Container = () => {
         if (type === 'Add') {
             const body = {
                 title: todoText,
-                date: '2020-11-17T17:00:00.000Z',
+                date: todoDate,
             }
             await createToDoList(body)
         } else if (type === 'Update') {
             const body = {
                 id: rowUpdate._id,
                 title: todoText,
-                date: '2020-11-17T17:00:00.000Z',
+                date: todoDate,
             }
             await updateToDoList(body)
             setBtnText('Add')
-            setToDoText('')
-            setTodoDate('')
         } else if (type === 'Delete') {
             await deleteToDoList(id)
-            setToDoText('')
-            setTodoDate('')
         }
+
+        setToDoText('')
+        setTodoDate(moment().format('YYYY-MM-DD'))
 
         await initFetch()
     }
@@ -112,11 +111,7 @@ const Container = () => {
                                 onChange={(event) => {
                                     setTodoDate(event.target.value)
                                 }}
-                                value={
-                                    todoDate
-                                        ? moment(todoDate).format('YYYY-MM-DD')
-                                        : moment().format('YYYY-MM-DD')
-                                }
+                                value={todoDate}
                             />
                         </Grid>
                     </Grid>
